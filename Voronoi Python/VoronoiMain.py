@@ -1,6 +1,7 @@
 __author__ = 'Amy Shi, Amber Lee, Fred Ayi-Quaye'
 
 from tkinter import *
+import math
 
 class Context:
     def __init__(self):
@@ -17,6 +18,15 @@ class Context:
         pass
     def line(self,x0,y0,x1,y1):
         pass
+
+
+def angle(pt1,pt2):
+    m1 = (pt1.getY() - pt1.getY())/1
+    m2 = (pt2.getY() - pt1.getY())/(pt2.getX()-pt1.getX())
+    tnAngle = (m1-m2)/(1+(m1*m2))
+    return math.atan(tnAngle)
+
+
 
 context = Context()
 
@@ -35,6 +45,8 @@ w.pack()
 w.create_line(0,0,200,100)
 w.create_line(0, 100, 200, 0, fill="red", dash=(4,4))
 w.create_rectangle(50,25,150,75,fill="blue")
+#This actually works. It's just very small.
+w.create_polygon(array[0][0], array[0][1], array[1][0], array[1][1], array[2][0], array[2][1], array[3][0], array[3][1], fill="blue")
 root.title("Voronoi Painting")
 root.geometry("500x500")
 
