@@ -11,11 +11,6 @@ def angle(pt1,pt2):
     tnAngle = (m1-m2)/(1+(m1*m2))
     return math.atan(tnAngle)
 
-#Just a functionality to make the button click work. It's not even all that necessary.
-
-root = Tk()
-
-
 class Window():
     def __init__(self):
         #Let's create a text button
@@ -25,7 +20,7 @@ class Window():
 
         #Let's create a textbox
         Label(text='Please enter an image file to use.').pack(side=TOP,padx=10,pady=10)
-        self.entry = Entry(root, width=10)
+        self.entry = Entry(root, width=50)
         self.entry.pack(side=TOP,padx=10,pady=10)
         def onok():
             imageName = self.entry.get()
@@ -58,8 +53,8 @@ def reload(self, imageName):
                 print(x, ", ", y, " Black")
                 all_pixels.append(0)
     print(all_pixels.__len__())
-
-
+    print(all_pixels)
+root = Tk()
 Window()
 root.title("Voronoi Painting")
 root.geometry("500x500")
