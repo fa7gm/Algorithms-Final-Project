@@ -12,38 +12,35 @@ def angle(pt1,pt2):
     return math.atan(tnAngle)
 
 #Just a functionality to make the button click work. It's not even all that necessary.
-def onok():
-    imageName = entry.get()
-    print(imageName)
-    reload(imageName)
+
 root = Tk()
 
 
+class Window():
+    def __init__(self):
+        #Let's create a text button
+        self.T = Text(root, height=2, width=50)
+        self.T.pack()
+        self.T.insert(END, "Welcome to the Voronoi Painter.\n")
 
-#Let's create a text button
-T = Text(root, height=2, width=50)
-T.pack()
-T.insert(END, "Welcome to the Voronoi Painter.\n")
+        #Let's create a textbox
+        Label(text='Please enter an image file to use.').pack(side=TOP,padx=10,pady=10)
+        self.entry = Entry(root, width=10)
+        self.entry.pack(side=TOP,padx=10,pady=10)
+        def onok():
+            imageName = self.entry.get()
+            print(imageName)
+            reload(self, imageName)
+        Button(root, text='Add image file', command=onok).pack(side=BOTTOM)
+        self.w = Canvas(root, width=1000, height=1000)
+        self.w.pack()
 
 
 
-
-
-#Let's create a textbox
-Label(text='Please enter an image file to use.').pack(side=TOP,padx=10,pady=10)
-entry = Entry(root, width=10)
-entry.pack(side=TOP,padx=10,pady=10)
-
-Button(root, text='Add image file', command=onok).pack(side=LEFT)
-
-
-
-
-
-def reload(imageName):
+def reload(self, imageName):
     #Let's create a canvas
-    w = Canvas(root, width=1000, height=1000)
-    w.pack()
+    self.w.pack()
+    self.w.delete("all")
     #Let's create an image
     image = Image.open(imageName)
     pixels = image.load()
@@ -54,7 +51,7 @@ def reload(imageName):
             cpixel = pixels[x, y]
             if round(sum(cpixel)) / float(len(cpixel)) > 127:
                 all_pixels.append(255)
-                w.create_oval(x, y, x+1, y+1, fill="white")
+                self.w.create_oval(x, y, x+1, y+1, fill="white")
                 print(x, ", ", y, " white")
 
             else:
@@ -63,7 +60,7 @@ def reload(imageName):
     print(all_pixels.__len__())
 
 
-
+Window()
 root.title("Voronoi Painting")
 root.geometry("500x500")
 root.mainloop()
