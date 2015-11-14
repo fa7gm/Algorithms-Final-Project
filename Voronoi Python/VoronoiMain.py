@@ -1,26 +1,9 @@
 __author__ = 'Amy Shi, Amber Lee, Fred Ayi-Quaye'
 
 from tkinter import *
+import tkinter
 import math
 from PIL import Image
-import operator
-
-class Context:
-    def __init__(self):
-        self.doPrint = 0
-        self.debug = 0
-        self.plot = 0
-        self.triangulate = False
-        self.vertices = []    # list of vertex 2-tuples: (x,y)
-        self.lines = []    # equation of line 3-tuple (a b c), for the equation of the line a*x+b*y = c
-        self.edges = []    # edge 3-tuple: (line index, vertex 1 index, vertex 2 index)   if either vertex index is -1, the edge extends to infiinity
-        self.triangles = []    # 3-tuple of vertex indices
-        self.polygons = {}    # a dict of site:[edges] pairs
-    def circle(self, x, y, rad):
-        pass
-    def line(self,x0,y0,x1,y1):
-        pass
-
 
 def angle(pt1,pt2):
     m1 = (pt1.getY() - pt1.getY())/1
@@ -28,29 +11,41 @@ def angle(pt1,pt2):
     tnAngle = (m1-m2)/(1+(m1*m2))
     return math.atan(tnAngle)
 
+def onok():
+    imageName = entry.get()
+    print(imageName)
 
-
-context = Context()
-
-#For reading coordinates from a text file
-#with open('points.txt') as f:
-#    w, h = [int(x) for x in f.readline().split()]
-#    array = [[int(x) for x in line.split()] for line in f]
-#for p in array:
-#    print(p)
-
-
-#Graphics (Currently just a sample at the moment.)
 root = Tk()
-w = Canvas(root, width=200, height=100)
+
+
+
+#Let's create a text button
+T = Text(root, height=2, width=50)
+T.pack()
+T.insert(END, "Welcome to the Voronoi Painter.\n")
+
+
+
+
+
+#Let's create a textbox
+Label(text='Please enter an image file to use.').pack(side=TOP,padx=10,pady=10)
+entry = Entry(root, width=10)
+entry.pack(side=TOP,padx=10,pady=10)
+
+Button(root, text='Add image file', command=onok).pack(side=LEFT)
+Button(root, text='CLOSE').pack(side= RIGHT)
+
+
+
+
+
+
+#Let's create a canvas
+w = Canvas(root, width=1000, height=1000)
 w.pack()
-#w.create_line(0,0,200,100)
-#w.create_line(0, 100, 200, 0, fill="red", dash=(4,4))
-#w.create_rectangle(50,25,150,75,fill="blue")
-
-
 #Let's create an image
-image = Image.open('sample.png')
+image = Image.open('search.png')
 pixels = image.load()
 width, height = image.size
 all_pixels = []
@@ -64,11 +59,11 @@ for x in range(width):
 
         else:
             print(x, ", ", y, " Black")
-           # w.create_oval(x, y, x + 1, y + 1, fill="white")
             all_pixels.append(0)
+
+
 
 print(all_pixels.__len__())
 root.title("Voronoi Painting")
 root.geometry("500x500")
-
 root.mainloop()
