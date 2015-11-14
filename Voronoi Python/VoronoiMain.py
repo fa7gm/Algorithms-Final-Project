@@ -11,10 +11,11 @@ def angle(pt1,pt2):
     tnAngle = (m1-m2)/(1+(m1*m2))
     return math.atan(tnAngle)
 
+#Just a functionality to make the button click work. It's not even all that necessary.
 def onok():
     imageName = entry.get()
     print(imageName)
-
+    reload(imageName)
 root = Tk()
 
 
@@ -34,36 +35,35 @@ entry = Entry(root, width=10)
 entry.pack(side=TOP,padx=10,pady=10)
 
 Button(root, text='Add image file', command=onok).pack(side=LEFT)
-Button(root, text='CLOSE').pack(side= RIGHT)
 
 
 
 
 
+def reload(imageName):
+    #Let's create a canvas
+    w = Canvas(root, width=1000, height=1000)
+    w.pack()
+    #Let's create an image
+    image = Image.open(imageName)
+    pixels = image.load()
+    width, height = image.size
+    all_pixels = []
+    for x in range(width):
+        for y in range(height):
+            cpixel = pixels[x, y]
+            if round(sum(cpixel)) / float(len(cpixel)) > 127:
+                all_pixels.append(255)
+                w.create_oval(x, y, x+1, y+1, fill="white")
+                print(x, ", ", y, " white")
 
-#Let's create a canvas
-w = Canvas(root, width=1000, height=1000)
-w.pack()
-#Let's create an image
-image = Image.open('search.png')
-pixels = image.load()
-width, height = image.size
-all_pixels = []
-for x in range(width):
-    for y in range(height):
-        cpixel = pixels[x, y]
-        if round(sum(cpixel)) / float(len(cpixel)) > 127:
-            all_pixels.append(255)
-            w.create_oval(x, y, x+1, y+1, fill="white")
-            print(x, ", ", y, " white")
-
-        else:
-            print(x, ", ", y, " Black")
-            all_pixels.append(0)
+            else:
+                print(x, ", ", y, " Black")
+                all_pixels.append(0)
+    print(all_pixels.__len__())
 
 
 
-print(all_pixels.__len__())
 root.title("Voronoi Painting")
 root.geometry("500x500")
 root.mainloop()
