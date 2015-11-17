@@ -1,7 +1,7 @@
 __author__ = 'Amy Shi, Amber Lee, Fred Ayi-Quaye'
 
 from tkinter import *
-import tkinter
+import random
 import math
 from PIL import Image
 
@@ -44,7 +44,8 @@ def reload(self, imageName):
     for x in range(width):
         for y in range(height):
             cpixel = pixels[x, y]
-            if (round(sum(cpixel)) / float(len(cpixel)) > 127) & (x%3 == 0) & (y%3 == 0):
+            foo = random.randint(1, 7)
+            if (round(sum(cpixel)) / float(len(cpixel)) > 127) & (x%foo == 0) & (y%foo == 0):
                 all_pixels.append(255)
                 self.w.create_oval(x, y, x+1, y+1, fill="black")
                 print(x, ", ", y, " white")
