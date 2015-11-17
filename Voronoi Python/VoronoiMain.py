@@ -44,9 +44,9 @@ def reload(self, imageName):
     for x in range(width):
         for y in range(height):
             cpixel = pixels[x, y]
-            if round(sum(cpixel)) / float(len(cpixel)) > 127:
+            if (round(sum(cpixel)) / float(len(cpixel)) > 127) & (x%3 == 0) & (y%3 == 0):
                 all_pixels.append(255)
-                self.w.create_oval(x, y, x+1, y+1, fill="white")
+                self.w.create_oval(x, y, x+1, y+1, fill="black")
                 print(x, ", ", y, " white")
 
             else:
