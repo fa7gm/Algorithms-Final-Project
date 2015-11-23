@@ -55,8 +55,8 @@ def reload(self, imageName):
             foo = random.randint(1, 7)
             if (round(sum(cpixel)) / float(len(cpixel)) > 127) & (x%foo == 0) & (y%foo == 0):
                 all_pixels.append(255)
-                points.append([x, y])
-                self.w.create_oval(x, y, x+1, y+1, fill="black")
+                points.append([x*2, y*2])
+                self.w.create_oval(x*2, y*2, x*2+1, y*2+1, fill="black")
                 print(x, ", ", y, " white")
 
             else:
