@@ -6,13 +6,13 @@ import math
 from PIL import Image
 
 def angle(pt1,pt2):
-    m1 = (pt1.getY() - pt1.getY())/1
-    m2 = (pt2.getY() - pt1.getY())/(pt2.getX()-pt1.getX())
+    m1 = (pt1[1] - pt1[1]/1)
+    m2 = (pt2[1] - pt1[1]/(pt2[0]-pt1[0]))
     tnAngle = (m1-m2)/(1+(m1*m2))
     return math.atan(tnAngle)
 
 def distance(pt1, pt2):
-    return math.hypot(pt2.getX()-pt1.getX(), pt2.getY()-pt1.getY())
+    return math.hypot(pt2[0]-pt1[0], pt2[1]-pt1[1])
 
 class Window():
     def __init__(self):
@@ -61,6 +61,10 @@ def reload(self, imageName):
     print(all_pixels.__len__())
     print(all_pixels)
     print(points)
+    value = distance(points[0], points[1])
+    ang = angle(points[0], points[1])
+    #print(value)
+    #print(ang)
 root = Tk()
 Window()
 root.title("Voronoi Painting")
