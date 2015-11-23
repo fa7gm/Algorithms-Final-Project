@@ -41,13 +41,17 @@ def reload(self, imageName):
     image = Image.open(imageName)
     pixels = image.load()
     width, height = image.size
+    #Just a testing data structure. Don't use this.
     all_pixels = []
+    #Use this one when doing calculations.
+    points = []
     for x in range(width):
         for y in range(height):
             cpixel = pixels[x, y]
             foo = random.randint(1, 7)
             if (round(sum(cpixel)) / float(len(cpixel)) > 127) & (x%foo == 0) & (y%foo == 0):
                 all_pixels.append(255)
+                points.append([x, y])
                 self.w.create_oval(x, y, x+1, y+1, fill="black")
                 print(x, ", ", y, " white")
 
@@ -56,6 +60,7 @@ def reload(self, imageName):
                 all_pixels.append(0)
     print(all_pixels.__len__())
     print(all_pixels)
+    print(points)
 root = Tk()
 Window()
 root.title("Voronoi Painting")
