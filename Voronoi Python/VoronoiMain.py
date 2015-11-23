@@ -3,6 +3,8 @@ __author__ = 'Amy Shi, Amber Lee, Fred Ayi-Quaye'
 from tkinter import *
 import random
 import math
+import doctest
+from itertools import permutations
 from PIL import Image
 
 def angle(pt1,pt2):
@@ -17,6 +19,14 @@ def angle(pt1,pt2):
 
 def distance(pt1, pt2):
     return math.hypot(pt2[0]-pt1[0], pt2[1]-pt1[1])
+
+def total_distance(points):
+    return sum([distance(point, points[index+1]) for index, point in enumerate(points[:-1])])
+
+#def bruteForceTravellingSalesman(points, start=None):
+#    if start is None:
+#        start=points[0]
+#    return min([perm for perm in permutations(points) if perm[0] == start], key=total_distance)
 
 class Window():
     def __init__(self):
@@ -68,7 +78,9 @@ def reload(self, imageName):
     value = distance(points[0], points[1])
     #ang = angle(points[0], points[1])
     print(value)
+    print(total_distance(points))
     #print(ang)
+
 root = Tk()
 Window()
 root.title("Voronoi Painting")
