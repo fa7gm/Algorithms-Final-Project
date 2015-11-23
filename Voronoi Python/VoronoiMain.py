@@ -11,6 +11,9 @@ def angle(pt1,pt2):
     tnAngle = (m1-m2)/(1+(m1*m2))
     return math.atan(tnAngle)
 
+def distance(pt1, pt2):
+    return math.hypot(pt2.getX()-pt1.getX(), pt2.getY()-pt1.getY())
+
 class Window():
     def __init__(self):
         #Let's create a text button
@@ -29,8 +32,6 @@ class Window():
         Button(root, text='Add image file', command=onok).pack(side=BOTTOM)
         self.w = Canvas(root, width=1000, height=1000)
         self.w.pack()
-
-
 
 def reload(self, imageName):
     #Let's create a canvas
