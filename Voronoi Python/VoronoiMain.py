@@ -6,10 +6,14 @@ import math
 from PIL import Image
 
 def angle(pt1,pt2):
-    m1 = (pt1[1] - pt1[1]/1)
-    m2 = (pt2[1] - pt1[1]/(pt2[0]-pt1[0]))
-    tnAngle = (m1-m2)/(1+(m1*m2))
-    return math.atan(tnAngle)
+    if(pt2[0]-pt1[0] == 0):
+        #Something happens
+        return 0
+    else:
+        m1 = (pt1[1] - pt1[1]/1)
+        m2 = (pt2[1] - pt1[1]/(pt2[0]-pt1[0]))
+        tnAngle = (m1-m2)/(1+(m1*m2))
+        return math.atan(tnAngle)
 
 def distance(pt1, pt2):
     return math.hypot(pt2[0]-pt1[0], pt2[1]-pt1[1])
