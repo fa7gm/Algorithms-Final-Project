@@ -32,15 +32,44 @@ def nearestDistanceConnect(points, w):
 
 #This code draws a perpendicular line given two points
 def drawPerpendicular(pt1, pt2, w):
-    leftsize = 10
-    rightsize = 10
     centerX = (pt1.x + pt2.x) / 2
     centerY = (pt1.y + pt2.y) / 2
-    if(pt1.y - pt2.y != 0):
-        w.create_line(centerX - leftsize, centerY + leftsize*((pt1.x-pt2.x)/(pt1.y-pt2.y)), centerX + rightsize, centerY - rightsize*((pt1.x-pt2.x)/(pt1.y-pt2.y)), fill="red", width=1)
+    leftsize = 10
+    rightsize = 10
+    start = Point(0, 0)
+    end = Point(0, 0)
+    if pt1.y - pt2.y != 0:
+        start.x = centerX - leftsize
+        start.y = centerY + leftsize*((pt1.x-pt2.x)/(pt1.y-pt2.y))
+        end.x = centerX + rightsize
+        end.y = centerY - rightsize*((pt1.x-pt2.x)/(pt1.y-pt2.y))
         print(centerX - 1, centerY + ((pt1.x-pt2.x)/(pt1.y-pt2.y)), " to ", centerX + 1, centerY - ((pt1.x-pt2.x)/(pt1.y-pt2.y)))
     else:
-        w.create_line(centerX, centerY + leftsize, centerX, centerY - rightsize, fill="red", width=1)
+        start.x = centerX
+        start.y = centerY + leftsize
+        end.x = centerX
+        end.y = centerY - rightsize
+    w.create_line(start.x, start.y, end.x, end.y, fill="red", width=1)
+    voronoiLines.append(Line(start, end))
+
+def drawPerpendicularIntersection(pt1, pt2, w, beginning, finish):
+    centerX = (pt1.x + pt2.x) / 2
+    centerY = (pt1.y + pt2.y) / 2
+    start = Point()
+    end = Point()
+    if pt1.y - pt2.y != 0:
+        start.x = beginning.x
+        start.y = centerY + (centerX - beginning.x)*((pt1.x-pt2.x)/(pt1.y-pt2.y))
+        end.x = finish.x
+        end.y = centerY + (finish.x - centerX)*((pt1.x-pt2.x)/(pt1.y-pt2.y))
+        print(centerX - 1, centerY + ((pt1.x-pt2.x)/(pt1.y-pt2.y)), " to ", centerX + 1, centerY - ((pt1.x-pt2.x)/(pt1.y-pt2.y)))
+    else:
+        start.x = centerX
+        start.y = beginning.y
+        end.x = centerY
+        end.y = end.y
+    w.create_line(start.x, start.y, end.x, end.y, fill="red", width=1)
+    voronoiLines.append(Line(start, end))
 
 def angle(pt1,pt2):
     if(pt2.x-pt1.x == 0):
@@ -102,13 +131,10 @@ def reload(self, imageName):
             foo = random.randint(1, 7)
             if (round(sum(cpixel)) / float(len(cpixel)) > 127) & (x%foo == 0) & (y%foo == 0):
                 all_pixels.append(255)
-                pt = Point(x*2, y*2)
                 points.append(Point(x*2, y*2))
                 self.w.create_oval(x*2, y*2, x*2+1, y*2+1, fill="black")
             else:
                 all_pixels.append(0)
-
-
 
     nearestDistanceConnect(points, self.w)
 
