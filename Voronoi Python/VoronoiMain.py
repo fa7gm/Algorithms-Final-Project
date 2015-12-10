@@ -4,7 +4,6 @@ from tkinter import *
 import random
 import math
 from PIL import Image
-
 def angle(pt1,pt2):
     m1 = (pt1.getY() - pt1.getY())/1
     m2 = (pt2.getY() - pt1.getY())/(pt2.getX()-pt1.getX())
@@ -60,3 +59,22 @@ Window()
 root.title("Voronoi Painting")
 root.geometry("500x500")
 root.mainloop()
+
+
+"""
+MANHATTAN DISTANCES
+for x=(a,b) and y=(c,d), the Manhattan distance between them x and y is
+abs(a-c) + abs(b-d)
+
+Voronoi algorithm: given an input set of points called 'sites'
+compute bounded regions called 'cell' for each site such that the site enclosed by
+each cell is the closest site to all points within the cell
+
+Boundaries between cells called 'voronoi edge' are line segments equidistant from two sites.
+Intersection of three or more voronoi edges create a 'voronoi vertex'
+
+Delaunay triangulation:
+
+Triangulation(in R2): of a set of points P(R2) is a simplitial complex 'delta
+"""
+
