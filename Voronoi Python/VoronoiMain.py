@@ -7,7 +7,10 @@ import time
 import doctest
 from itertools import permutations
 from PIL import Image
-#This is just a building block that I am playing around with
+
+voronoiLines = []
+
+#This code currently finds the closest point out of all the points.
 def nearestDistanceConnect(points, w):
     for point in points:
         closestDist = float("inf")
@@ -26,6 +29,7 @@ def nearestDistanceConnect(points, w):
         drawPerpendicular(point, [closestX, closestY], w)
     return 0
 
+#This code draws a perpendicular line given two points
 def drawPerpendicular(pt1, pt2, w):
     leftsize = 10
     rightsize = 10
