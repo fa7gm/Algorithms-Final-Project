@@ -9,28 +9,27 @@ from itertools import permutations
 from PIL import Image
 from voronoiCell import *
 
-voronoiLines = []
 
-#This code currently finds the closest point out of all the points.
+voronoiLines = [] #This will contain all of the lines that were generated from the Green and Gibson algorithm
+
+#This draws a perpendicular line between all points that are closest to each other.
 def nearestDistanceConnect(points, w):
     for point in points:
         closestDist = float("inf")
         closestX = 0;
         closestY = 0;
-        for pointee in points:
-            #w.create_line(point[0], point[1], pointee[0], pointee[1], fill="#476042", width=3)
-           # print("created a line at (", point[0], ", ", point[1], ") to (", pointee[0], ", ", pointee[1], ")")
+        for pointee in points: #For each point, find the point that is closest to it.
             dist = distance(point, pointee)
             if((dist < closestDist) & (dist > 0)):
                 closestDist = dist
                 closestX = pointee.x
                 closestY = pointee.y
         print("The closest point to ", point.x, point.y, " is ", closestX, closestY)
-        w.create_line(point.x, point.y, closestX, closestY, fill="#476042", width=3)
-        drawPerpendicular(point, Point(closestX, closestY), w)
+        w.create_line(point.x, point.y, closestX, closestY, fill="#476042", width=1) #Draw a line between the closest points
+        drawPerpendicular(point, Point(closestX, closestY), w) #Draw the line's perpendicular.
     return 0
 
-#This code draws a perpendicular line given two points
+#This code is most likely not going to be used, but it is a filler for now.
 def drawPerpendicular(pt1, pt2, w):
     centerX = (pt1.x + pt2.x) / 2
     centerY = (pt1.y + pt2.y) / 2
@@ -87,11 +86,6 @@ def distance(pt1, pt2):
 def total_distance(points):
     return sum([distance(point, points[index+1]) for index, point in enumerate(points[:-1])])
 
-#def bruteForceTravellingSalesman(points, start=None):
-#    if start is None:
-#        start=points[0]
-#    return min([perm for perm in permutations(points) if perm[0] == start], key=total_distance)
-
 class Window():
     def __init__(self):
         #Let's create a text button
@@ -137,9 +131,10 @@ def reload(self, imageName):
                 all_pixels.append(0)
 
     nearestDistanceConnect(points, self.w)
+    for line in voronoiLines:
+        print("(",line.start.x,",", line.start.y, ") to (", line.end.x, ",", line.end.y,")")
 
-def delay(self):
-    print("Animated")
+
 def window_close():
     root.destroy()
 
