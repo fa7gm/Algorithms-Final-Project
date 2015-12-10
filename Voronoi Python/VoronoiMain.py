@@ -38,7 +38,7 @@ def drawPerpendicular(pt1, pt2, w):
     centerY = (pt1.y + pt2.y) / 2
     if(pt1.y - pt2.y != 0):
         w.create_line(centerX - leftsize, centerY + leftsize*((pt1.x-pt2.x)/(pt1.y-pt2.y)), centerX + rightsize, centerY - rightsize*((pt1.x-pt2.x)/(pt1.x-pt2.x)), fill="red", width=1)
-        print(centerX - 1, centerY + ((pt1[0]-pt2[0])/(pt1[1]-pt2[1])), " to ", centerX + 1, centerY - ((pt1[0]-pt2[0])/(pt1[1]-pt2[1])))
+        print(centerX - 1, centerY + ((pt1.x-pt2.x)/(pt1.y-pt2.y)), " to ", centerX + 1, centerY - ((pt1.x-pt2.x)/(pt1.y-pt2.y)))
     else:
         w.create_line(centerX, centerY + leftsize, centerX, centerY - rightsize, fill="red", width=1)
 
@@ -101,7 +101,7 @@ def reload(self, imageName):
             foo = random.randint(1, 7)
             if (round(sum(cpixel)) / float(len(cpixel)) > 127) & (x%foo == 0) & (y%foo == 0):
                 all_pixels.append(255)
-                pt = Point(x*2, x*2)
+                pt = Point()
                 pt.x = x*2
                 pt.y = y*2
                 points.append(pt)
