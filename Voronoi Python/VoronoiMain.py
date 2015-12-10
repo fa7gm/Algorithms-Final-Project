@@ -7,6 +7,7 @@ import time
 import doctest
 from itertools import permutations
 from PIL import Image
+import voronoiCell.py
 
 voronoiLines = []
 
