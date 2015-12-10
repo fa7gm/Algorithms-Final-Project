@@ -1,4 +1,4 @@
-
+#Not our code.
 from tkinter import *
 import time
 

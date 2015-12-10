@@ -11,6 +11,7 @@ from voronoiCell import *
 
 
 voronoiLines = [] #This will contain all of the lines that were generated from the Green and Gibson algorithm
+voronoiCells = []
 
 #This draws a perpendicular line between all points that are closest to each other.
 def nearestDistanceConnect(points, w):
@@ -61,31 +62,17 @@ def drawPerpendicularIntersection(pt1, pt2, beginning, finish):
         start.y = centerY + (centerX - beginning.x)*((pt1.x-pt2.x)/(pt1.y-pt2.y))
         end.x = finish.x
         end.y = centerY - (finish.x - centerX)*((pt1.x-pt2.x)/(pt1.y-pt2.y))
-        #print(centerX - 1, centerY + ((pt1.x-pt2.x)/(pt1.y-pt2.y)), " to ", centerX + 1, centerY - ((pt1.x-pt2.x)/(pt1.y-pt2.y)))
     else:
         start.x = centerX
         start.y = beginning.y
         end.x = centerY
         end.y = end.y
-    #w.create_line(start.x, start.y, end.x, end.y, fill="red", width=1)
-    return Line(Point(start.x, start.y), Point(end.x, end.y))
     voronoiLines.append(Line(start, end))
+    return Line(Point(start.x, start.y), Point(end.x, end.y))
 
-def angle(pt1,pt2):
-    if(pt2.x-pt1.x == 0):
-        #Something happens
-        return 0
-    else:
-        m1 = (pt1.y - pt1.y/1)
-        m2 = (pt2.y - pt1.y/(pt2.x-pt1.x))
-        tnAngle = (m1-m2)/(1+(m1*m2))
-        return math.atan(tnAngle)
 
 def distance(pt1, pt2):
     return math.hypot(pt2.x-pt1.x, pt2.y-pt1.y)
-
-def total_distance(points):
-    return sum([distance(point, points[index+1]) for index, point in enumerate(points[:-1])])
 
 class Window():
     def __init__(self):

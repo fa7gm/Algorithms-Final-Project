@@ -1,14 +1,5 @@
 __author__ = 'Amy Shi, Amber Lee, Fred Ayi-Quaye'
 
-from tkinter import *
-import random
-import math
-import time
-import doctest
-from itertools import permutations
-from PIL import Image
-
-
 # A point has an x and a y coordinate
 # x and y must be numbers
 class Point:
@@ -32,3 +23,4 @@ class Cell:
 		self.center = center
 		self.adjacent = adjacent
 		self.walls = walls
+		self.neighbors = [] #An array of other cells
