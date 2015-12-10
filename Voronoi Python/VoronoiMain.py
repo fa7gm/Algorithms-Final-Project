@@ -42,7 +42,7 @@ def drawPerpendicular(pt1, pt2, w):
         start.y = centerY + leftsize*((pt1.x-pt2.x)/(pt1.y-pt2.y))
         end.x = centerX + rightsize
         end.y = centerY - rightsize*((pt1.x-pt2.x)/(pt1.y-pt2.y))
-        print(centerX - 1, centerY + ((pt1.x-pt2.x)/(pt1.y-pt2.y)), " to ", centerX + 1, centerY - ((pt1.x-pt2.x)/(pt1.y-pt2.y)))
+        #print(centerX - 1, centerY + ((pt1.x-pt2.x)/(pt1.y-pt2.y)), " to ", centerX + 1, centerY - ((pt1.x-pt2.x)/(pt1.y-pt2.y)))
     else:
         start.x = centerX
         start.y = centerY + leftsize
@@ -51,23 +51,24 @@ def drawPerpendicular(pt1, pt2, w):
     w.create_line(start.x, start.y, end.x, end.y, fill="red", width=1)
     voronoiLines.append(Line(start, end))
 
-def drawPerpendicularIntersection(pt1, pt2, w, beginning, finish):
+def drawPerpendicularIntersection(pt1, pt2, beginning, finish):
     centerX = (pt1.x + pt2.x) / 2
     centerY = (pt1.y + pt2.y) / 2
-    start = Point()
-    end = Point()
+    start = Point(0, 0)
+    end = Point(0, 0)
     if pt1.y - pt2.y != 0:
         start.x = beginning.x
         start.y = centerY + (centerX - beginning.x)*((pt1.x-pt2.x)/(pt1.y-pt2.y))
         end.x = finish.x
-        end.y = centerY + (finish.x - centerX)*((pt1.x-pt2.x)/(pt1.y-pt2.y))
-        print(centerX - 1, centerY + ((pt1.x-pt2.x)/(pt1.y-pt2.y)), " to ", centerX + 1, centerY - ((pt1.x-pt2.x)/(pt1.y-pt2.y)))
+        end.y = centerY - (finish.x - centerX)*((pt1.x-pt2.x)/(pt1.y-pt2.y))
+        #print(centerX - 1, centerY + ((pt1.x-pt2.x)/(pt1.y-pt2.y)), " to ", centerX + 1, centerY - ((pt1.x-pt2.x)/(pt1.y-pt2.y)))
     else:
         start.x = centerX
         start.y = beginning.y
         end.x = centerY
         end.y = end.y
-    w.create_line(start.x, start.y, end.x, end.y, fill="red", width=1)
+    #w.create_line(start.x, start.y, end.x, end.y, fill="red", width=1)
+    return Line(Point(start.x, start.y), Point(end.x, end.y))
     voronoiLines.append(Line(start, end))
 
 def angle(pt1,pt2):
@@ -133,6 +134,9 @@ def reload(self, imageName):
     nearestDistanceConnect(points, self.w)
     for line in voronoiLines:
         print("(",line.start.x,",", line.start.y, ") to (", line.end.x, ",", line.end.y,")")
+
+
+
 
 
 def window_close():
