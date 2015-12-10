@@ -7,7 +7,7 @@ import time
 import doctest
 from itertools import permutations
 from PIL import Image
-
+#This is just a building block that I am playing around with
 def nearestDistanceConnect(points, w):
     for point in points:
         closestDist = float("inf")
@@ -21,9 +21,18 @@ def nearestDistanceConnect(points, w):
                 closestDist = dist
                 closestX = pointee[0]
                 closestY = pointee[1]
-        print("The closest point to ", point[0], point[1], " is ", closestDist)
+        print("The closest point to ", point[0], point[1], " is ", closestX, closestY)
         w.create_line(point[0], point[1], closestX, closestY, fill="#476042", width=3)
+        drawPerpendicular(point, [closestX, closestY], w)
     return 0
+
+def drawPerpendicular(pt1, pt2, w):
+    size = 5
+    centerX = (pt1[0] + pt2[0]) / 2
+    centerY = (pt1[1] + pt2[1]) / 2
+    if(pt1[1] - pt2[1] != 0):
+        w.create_line(centerX - size, centerY + size*((pt1[0]-pt2[0])/(pt1[1]-pt2[1])), centerX + size, centerY - size*((pt1[0]-pt2[0])/(pt1[1]-pt2[1])), fill="red", width=1)
+        print(centerX - 1, centerY + ((pt1[0]-pt2[0])/(pt1[1]-pt2[1])), " to ", centerX + 1, centerY - ((pt1[0]-pt2[0])/(pt1[1]-pt2[1])))
 
 def angle(pt1,pt2):
     if(pt2[0]-pt1[0] == 0):
@@ -101,6 +110,9 @@ def reload(self, imageName):
     #rint(total_distance(points))
     #print(ang)
     nearestDistanceConnect(points, self.w)
+    example1 = [0, 0]
+    example2 = [5000, 5000]
+    drawPerpendicular(example1, example2, self.w)
     #self.w.after(20, reload(self, imageName))
 
 def delay(self):
