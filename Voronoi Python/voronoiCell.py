@@ -7,7 +7,7 @@ import time
 import doctest
 from itertools import permutations
 from PIL import Image
-import VoronoiMain.py
+import VoronoiMain
 
 # A point has an x and a y coordinate
 # x and y must be numbers

@@ -7,7 +7,7 @@ import time
 import doctest
 from itertools import permutations
 from PIL import Image
-import voronoiCell.py
+import voronoiCell
 
 voronoiLines = []
 
@@ -23,10 +23,10 @@ def nearestDistanceConnect(points, w):
             dist = distance(point, pointee)
             if((dist < closestDist) & (dist > 0)):
                 closestDist = dist
-                closestX = pointee[0]
-                closestY = pointee[1]
-        print("The closest point to ", point[0], point[1], " is ", closestX, closestY)
-        w.create_line(point[0], point[1], closestX, closestY, fill="#476042", width=3)
+                closestX = pointee.x
+                closestY = pointee.y
+        print("The closest point to ", point.x, point.y, " is ", closestX, closestY)
+        w.create_line(point.x, point.y, closestX, closestY, fill="#476042", width=3)
         drawPerpendicular(point, [closestX, closestY], w)
     return 0
 
@@ -34,10 +34,10 @@ def nearestDistanceConnect(points, w):
 def drawPerpendicular(pt1, pt2, w):
     leftsize = 10
     rightsize = 10
-    centerX = (pt1[0] + pt2[0]) / 2
-    centerY = (pt1[1] + pt2[1]) / 2
-    if(pt1[1] - pt2[1] != 0):
-        w.create_line(centerX - leftsize, centerY + leftsize*((pt1[0]-pt2[0])/(pt1[1]-pt2[1])), centerX + rightsize, centerY - rightsize*((pt1[0]-pt2[0])/(pt1[1]-pt2[1])), fill="red", width=1)
+    centerX = (pt1.x + pt2.x) / 2
+    centerY = (pt1.y + pt2.y) / 2
+    if(pt1.y - pt2.y != 0):
+        w.create_line(centerX - leftsize, centerY + leftsize*((pt1.x-pt2.x)/(pt1.y-pt2.y)), centerX + rightsize, centerY - rightsize*((pt1.x-pt2.x)/(pt1.x-pt2.x)), fill="red", width=1)
         print(centerX - 1, centerY + ((pt1[0]-pt2[0])/(pt1[1]-pt2[1])), " to ", centerX + 1, centerY - ((pt1[0]-pt2[0])/(pt1[1]-pt2[1])))
     else:
         w.create_line(centerX, centerY + leftsize, centerX, centerY - rightsize, fill="red", width=1)
@@ -101,7 +101,10 @@ def reload(self, imageName):
             foo = random.randint(1, 7)
             if (round(sum(cpixel)) / float(len(cpixel)) > 127) & (x%foo == 0) & (y%foo == 0):
                 all_pixels.append(255)
-                points.append([x*2, y*2])
+                pt = Point(x*2, x*2)
+                pt.x = x*2
+                pt.y = y*2
+                points.append(pt)
                 self.w.create_oval(x*2, y*2, x*2+1, y*2+1, fill="black")
                 #print(x, ", ", y, " white")
             else:
