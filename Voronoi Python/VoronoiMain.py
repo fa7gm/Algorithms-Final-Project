@@ -27,14 +27,15 @@ def nearestDistanceConnect(points, w):
     return 0
 
 def drawPerpendicular(pt1, pt2, w):
-    size = 10
+    leftsize = 10
+    rightsize = 10
     centerX = (pt1[0] + pt2[0]) / 2
     centerY = (pt1[1] + pt2[1]) / 2
     if(pt1[1] - pt2[1] != 0):
-        w.create_line(centerX - size, centerY + size*((pt1[0]-pt2[0])/(pt1[1]-pt2[1])), centerX + size, centerY - size*((pt1[0]-pt2[0])/(pt1[1]-pt2[1])), fill="red", width=1)
+        w.create_line(centerX - leftsize, centerY + leftsize*((pt1[0]-pt2[0])/(pt1[1]-pt2[1])), centerX + rightsize, centerY - rightsize*((pt1[0]-pt2[0])/(pt1[1]-pt2[1])), fill="red", width=1)
         print(centerX - 1, centerY + ((pt1[0]-pt2[0])/(pt1[1]-pt2[1])), " to ", centerX + 1, centerY - ((pt1[0]-pt2[0])/(pt1[1]-pt2[1])))
     else:
-        w.create_line(centerX, centerY + size, centerX, centerY - size, fill="red", width=1)
+        w.create_line(centerX, centerY + leftsize, centerX, centerY - rightsize, fill="red", width=1)
 
 def angle(pt1,pt2):
     if(pt2[0]-pt1[0] == 0):
