@@ -7,7 +7,7 @@ import time
 import doctest
 from itertools import permutations
 from PIL import Image
-import voronoiCell
+from voronoiCell import *
 
 voronoiLines = []
 
@@ -78,6 +78,7 @@ class Window():
             imageName = self.entry.get()
             print(imageName)
             reload(self, imageName)
+        Button(root, text='Exit', command=window_close).pack(side=BOTTOM)
         Button(root, text='Add image file', command=onok).pack(side=BOTTOM)
         self.w = Canvas(root, width=1000, height=1000)
         self.w.pack()
@@ -101,35 +102,20 @@ def reload(self, imageName):
             foo = random.randint(1, 7)
             if (round(sum(cpixel)) / float(len(cpixel)) > 127) & (x%foo == 0) & (y%foo == 0):
                 all_pixels.append(255)
-                pt = Point()
-                pt.x = x*2
-                pt.y = y*2
-                points.append(pt)
+                pt = Point(x*2, y*2)
+                points.append(Point(x*2, y*2))
                 self.w.create_oval(x*2, y*2, x*2+1, y*2+1, fill="black")
-                #print(x, ", ", y, " white")
             else:
-                #print(x, ", ", y, " Black")
                 all_pixels.append(0)
-            #self.w.after(1000, delay(self))
 
-    #print(all_pixels.__len__())
-    #print(all_pixels)
-    #print(points)
-    #value = distance(points[0], points[1])
-    #ang = angle(points[0], points[1])
-    #print(value)
-    #rint(total_distance(points))
-    #print(ang)
+
+
     nearestDistanceConnect(points, self.w)
-    #example1 = [0, 0]
-    #example2 = [500, 500]
-    #self.w.create_line(0, 0, 500, 500, fill="blue")
-    #drawPerpendicular(example1, example2, self.w)
-
-    #self.w.after(20, reload(self, imageName))
 
 def delay(self):
     print("Animated")
+def window_close():
+    root.destroy()
 
 root = Tk()
 Window()
