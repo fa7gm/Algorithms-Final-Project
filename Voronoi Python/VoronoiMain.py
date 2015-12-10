@@ -27,7 +27,7 @@ def nearestDistanceConnect(points, w):
                 closestY = pointee.y
         print("The closest point to ", point.x, point.y, " is ", closestX, closestY)
         w.create_line(point.x, point.y, closestX, closestY, fill="#476042", width=3)
-        drawPerpendicular(point, [closestX, closestY], w)
+        drawPerpendicular(point, Point(closestX, closestY), w)
     return 0
 
 #This code draws a perpendicular line given two points
@@ -37,23 +37,23 @@ def drawPerpendicular(pt1, pt2, w):
     centerX = (pt1.x + pt2.x) / 2
     centerY = (pt1.y + pt2.y) / 2
     if(pt1.y - pt2.y != 0):
-        w.create_line(centerX - leftsize, centerY + leftsize*((pt1.x-pt2.x)/(pt1.y-pt2.y)), centerX + rightsize, centerY - rightsize*((pt1.x-pt2.x)/(pt1.x-pt2.x)), fill="red", width=1)
+        w.create_line(centerX - leftsize, centerY + leftsize*((pt1.x-pt2.x)/(pt1.y-pt2.y)), centerX + rightsize, centerY - rightsize*((pt1.x-pt2.x)/(pt1.y-pt2.y)), fill="red", width=1)
         print(centerX - 1, centerY + ((pt1.x-pt2.x)/(pt1.y-pt2.y)), " to ", centerX + 1, centerY - ((pt1.x-pt2.x)/(pt1.y-pt2.y)))
     else:
         w.create_line(centerX, centerY + leftsize, centerX, centerY - rightsize, fill="red", width=1)
 
 def angle(pt1,pt2):
-    if(pt2[0]-pt1[0] == 0):
+    if(pt2.x-pt1.x == 0):
         #Something happens
         return 0
     else:
-        m1 = (pt1[1] - pt1[1]/1)
-        m2 = (pt2[1] - pt1[1]/(pt2[0]-pt1[0]))
+        m1 = (pt1.y - pt1.y/1)
+        m2 = (pt2.y - pt1.y/(pt2.x-pt1.x))
         tnAngle = (m1-m2)/(1+(m1*m2))
         return math.atan(tnAngle)
 
 def distance(pt1, pt2):
-    return math.hypot(pt2[0]-pt1[0], pt2[1]-pt1[1])
+    return math.hypot(pt2.x-pt1.x, pt2.y-pt1.y)
 
 def total_distance(points):
     return sum([distance(point, points[index+1]) for index, point in enumerate(points[:-1])])
