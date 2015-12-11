@@ -8,7 +8,10 @@ import doctest
 from itertools import permutations
 from PIL import Image
 from voronoiCell import *
-
+from matplotlib.tri import Triangulation, UniformTriRefiner,\
+    CubicTriInterpolator
+import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 
 voronoiLines = [] #This will contain all of the lines that were generated from the Green and Gibson algorithm
 voronoiCells = []
@@ -106,6 +109,8 @@ def reload(self, imageName):
     all_pixels = []
     #Use this one when doing calculations.
     points = []
+    xarray = []
+    yarray = []
     #loop(self, points, pixels, all_pixels, width, height)
     for x in range(width):
         for y in range(height):
@@ -114,10 +119,17 @@ def reload(self, imageName):
             if (round(sum(cpixel)) / float(len(cpixel)) > 127) & (x%foo == 0) & (y%foo == 0):
                 all_pixels.append(255)
                 points.append(Point(x*2, y*2))
+                xarray.append(x*2)
+                yarray.append(y*2)
                 self.w.create_oval(x*2, y*2, x*2+1, y*2+1, fill="black")
             else:
                 all_pixels.append(0)
-
+    triangulation = Triangulation(xarray, yarray)
+    plt.figure()
+    plt.gca().set_aspect('equal')
+    plt.triplot(triangulation, color='0.8')
+    plt.title("Triangulation")
+    plt.show()
     nearestDistanceConnect(points, self.w)
     for line in voronoiLines:
         print("(",line.start.x,",", line.start.y, ") to (", line.end.x, ",", line.end.y,")")
