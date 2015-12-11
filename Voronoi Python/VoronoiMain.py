@@ -127,7 +127,7 @@ def reload(self, imageName):
     triangulation = Triangulation(xarray, yarray)
     plt.figure()
     plt.gca().set_aspect('equal')
-    plt.triplot(triangulation, color='0.8')
+    plt.triplot(triangulation)
     plt.title("Triangulation")
     plt.show()
     nearestDistanceConnect(points, self.w)
