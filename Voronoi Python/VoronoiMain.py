@@ -82,10 +82,10 @@ class Window():
         #Let's create a text button
         self.T = Text(root, height=2, width=50)
         self.T.pack()
-        self.T.insert(END, "Welcome to the Voronoi Painter.\n")
+        Label(text="Welcome to the Voronoi Painter.").pack(side=TOP, padx=10, pady=10)
 
         #Let's create a textbox
-        Label(text='Please enter an image file to use.').pack(side=TOP,padx=10,pady=10)
+        Label(text='Please enter an image file to use and press button.').pack(side=TOP,padx=10,pady=10)
         self.entry = Entry(root, width=50)
         self.entry.pack(side=TOP,padx=10,pady=10)
         def onok():
@@ -120,8 +120,8 @@ def reload(self, imageName):
                 all_pixels.append(255)
                 points.append(Point(x*2, y*2))
                 xarray.append(x*2)
-                yarray.append(y*2)
-                self.w.create_oval(x*2, y*2, x*2+1, y*2+1, fill="black")
+                yarray.append(1000 - y*2)
+                #self.w.create_oval(x*2, y*2, x*2+1, y*2+1, fill="black")
             else:
                 all_pixels.append(0)
     triangulation = Triangulation(xarray, yarray)
