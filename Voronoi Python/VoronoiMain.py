@@ -12,7 +12,7 @@ from matplotlib.tri import Triangulation, UniformTriRefiner,\
     CubicTriInterpolator
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-
+from matplotlib.patches import RegularPolygon
 voronoiLines = [] #This will contain all of the lines that were generated from the Green and Gibson algorithm
 voronoiCells = []
 
@@ -55,7 +55,7 @@ def drawPerpendicular(pt1, pt2, w):
     w.create_line(start.x, start.y, end.x, end.y, fill="red", width=1)
     voronoiLines.append(Line(start, end))
 
-def drawPerpendicularIntersection(pt1, pt2, beginning, finish):
+def drawPerpendicularBisector(pt1, pt2, beginning, finish):
     centerX = (pt1.x + pt2.x) / 2
     centerY = (pt1.y + pt2.y) / 2
     start = Point(0, 0)
@@ -92,6 +92,7 @@ class Window():
             imageName = self.entry.get()
             print(imageName)
             reload(self, imageName)
+            self.w.after(100, onok)
         Button(root, text='Exit', command=window_close).pack(side=BOTTOM)
         Button(root, text='Add image file', command=onok).pack(side=BOTTOM)
         self.w = Canvas(root, width=1000, height=1000)
@@ -111,6 +112,7 @@ def reload(self, imageName):
     points = []
     xarray = []
     yarray = []
+    color = ["red", "orange", "yellow", "green", "blue", "violet"]
     #loop(self, points, pixels, all_pixels, width, height)
     for x in range(width):
         for y in range(height):
@@ -125,14 +127,20 @@ def reload(self, imageName):
             else:
                 all_pixels.append(0)
     triangulation = Triangulation(xarray, yarray)
-    plt.figure()
-    plt.gca().set_aspect('equal')
-    plt.triplot(triangulation)
-    plt.title("Triangulation")
-    plt.show()
-    nearestDistanceConnect(points, self.w)
-    for line in voronoiLines:
-        print("(",line.start.x,",", line.start.y, ") to (", line.end.x, ",", line.end.y,")")
+    triangles = triangulation.get_masked_triangles()
+    polygons = []
+
+    for triangle in triangles:
+        self.w.create_polygon([xarray[triangle[0]], 1000 - yarray[triangle[0]]], [xarray[triangle[1]], 1000 - yarray[triangle[1]]], [xarray[triangle[2]], 1000 - yarray[triangle[2]]], fill=random.choice(color))
+        #print(triangle)
+    #plt.figure()
+    #plt.gca().set_aspect('equal')
+    #plt.triplot(triangulation)
+    #plt.title("Triangulation")
+    #plt.show()
+    #nearestDistanceConnect(points, self.w)
+    #for line in voronoiLines:
+    #    print("(",line.start.x,",", line.start.y, ") to (", line.end.x, ",", line.end.y,")")
 
 
 
