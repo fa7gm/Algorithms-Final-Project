@@ -142,8 +142,34 @@ def reload(self, imageName):
     #for line in voronoiLines:
     #    print("(",line.start.x,",", line.start.y, ") to (", line.end.x, ",", line.end.y,")")
 
+def intersects(l1, l2):
+    l1_start = l1.start
+    l1_end = l1.end
+    l2_start = l2.start
+    l2_end = l2.end
 
+    l1_startx = l1_start.x
+    l1_starty = l1_start.y
 
+    l2_startx = l2_start.x
+    l2_starty = l2_start.y
+
+    l1_endx = l1_end.x
+    l1_endy = l1_end.y
+
+    l2_endx = l2_end.x
+    l2_endy = l2_end.y
+
+    m1 = (l1_starty - l1_endy) / (l1_startx - l1_endx)
+    m2 = (l2_starty - l2_endy) / (l2_startx - l2_endx)
+
+    b1 = l1_starty - m1*l1_startx
+    b2 = l2_starty - m2*l2_startx
+
+    if m1==m2 && b1 != b2:
+        return false
+    else:
+        return true
 
 
 def window_close():
